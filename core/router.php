@@ -17,7 +17,6 @@ class Router
 		var_dump($request);
 		$request = preg_replace($trailSearch, $trailReplace, $request);
 		var_dump($request);
-		
 
 		echo '</pre>';
 
