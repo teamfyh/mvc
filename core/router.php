@@ -55,6 +55,22 @@ class Router
 		
 
 
+<<<<<<< HEAD
+=======
+	}
+
+	public function dispatch($url){
+		$this->urlParse($url);
+
+
+		//ECHO TESTING
+		echo '<pre>';
+		echo 'CONTROLLER : '.$this->controller.'<br>';
+		echo 'METHOD : '.$this->method.'<br>';
+		echo 'PARAMETERS : ';
+		var_dump($this->params);
+		echo '</pre>';
+>>>>>>> 89327637e59b19f245030a8301bbe9b4794fce6e
 	}
 
 	public function dispatch($url){
