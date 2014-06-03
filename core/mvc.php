@@ -20,7 +20,8 @@ class MVC
 			
 		include $file_configuration;
 		self::AutoLoad($files_core);
-		Router::urlParse($_SERVER['REQUEST_URI']);
+		$router = new Router();
+		$router->dispatch($_SERVER['REQUEST_URI']);
 	}
 
 	function AutoLoad($files){
