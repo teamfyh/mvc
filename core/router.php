@@ -38,13 +38,14 @@ class Router
 		$method = isset($controllArray[1]) ? self::cleanString($controllArray[1]) : 'index';
 
 		//IF PARAMETERS EXIST , EXPLODE INTO ARRAY
-		$paramArray = (isset($requestArray[1])) ? explode('&', $requestArray[1]) : array();
+		$paramArray = (isset($requestArray[1]) && !empty($requestArray[1])) ? explode('&', $requestArray[1]) : array();
 
 		$params = array();
 		if(count($paramArray)>0){
+
 			foreach ($paramArray as $key => $value) {
 				$v = explode('=', $value);
-				$params[$v[0]] = self::cleanString($v[1]);
+				$params[$v[0]] = (isset($v[1])) ? self::cleanString($v[1]) : null;
 			}
 		}
 		
@@ -54,7 +55,7 @@ class Router
 		echo 'CONTROLLER : '.$controller.'<br>';
 		echo 'METHOD : '.$method.'<br>';
 		echo 'PARAMETERS : ';
-		print_r($params);
+		var_dump($params);
 		echo '</pre>';
 
 	}
