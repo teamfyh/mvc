@@ -45,7 +45,7 @@ class Router
 
 			foreach ($paramArray as $key => $value) {
 				$v = explode('=', $value);
-				$params[$v[0]] = (isset($v[1])) ? self::cleanString($v[1]) : null;
+				$params[self::cleanString($v[0])] = (isset($v[1])) ? self::cleanString($v[1]) : null;
 			}
 		}
 		
