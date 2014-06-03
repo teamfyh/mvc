@@ -6,6 +6,10 @@ if (!defined('HOST')) exit('Access Denied');
 */
 class Router
 {
+	public  $controller = 'index';
+	public  $method = 'index';
+	public  $params = array();
+
 	public function urlParse($request){
 		
 		//DECODE THE URL FOR SPECIAL CHARACTERS
@@ -32,32 +36,38 @@ class Router
 		array_shift($controllArray);
 
 		//SET IF CONTROLLER EXIST , ELSE SET AS INDEX
-		$controller = isset($controllArray[0]) ? self::cleanString($controllArray[0]) : 'index';
+		$this->controller = isset($controllArray[0]) ? self::cleanString($controllArray[0]) : 'index';
 
 		//SET IF METHOD EXIST , ELSE SET AS INDEX
-		$method = isset($controllArray[1]) ? self::cleanString($controllArray[1]) : 'index';
+		$this->method = isset($controllArray[1]) ? self::cleanString($controllArray[1]) : 'index';
 
 		//IF PARAMETERS EXIST , EXPLODE INTO ARRAY
 		$paramArray = (isset($requestArray[1]) && !empty($requestArray[1])) ? explode('&', $requestArray[1]) : array();
 
-		$params = array();
+		
 		if(count($paramArray)>0){
 
 			foreach ($paramArray as $key => $value) {
 				$v = explode('=', $value);
-				$params[self::cleanString($v[0])] = (isset($v[1])) ? self::cleanString($v[1]) : null;
+				$this->params[self::cleanString($v[0])] = (isset($v[1])) ? self::cleanString($v[1]) : null;
 			}
 		}
 		
 
+
+	}
+
+	public function dispatch($url){
+		$this->urlParse($url);
+
+
 		//ECHO TESTING
 		echo '<pre>';
-		echo 'CONTROLLER : '.$controller.'<br>';
-		echo 'METHOD : '.$method.'<br>';
+		echo 'CONTROLLER : '.$this->controller.'<br>';
+		echo 'METHOD : '.$this->method.'<br>';
 		echo 'PARAMETERS : ';
-		var_dump($params);
+		var_dump($this->params);
 		echo '</pre>';
-
 	}
 
 	public function cleanString($string){
